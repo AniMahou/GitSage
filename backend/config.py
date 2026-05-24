@@ -2,9 +2,6 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Load .env file from project root
-# .env is two levels up from this file:
-#   GitSage/backend/config.py → GitSage/.env
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 
