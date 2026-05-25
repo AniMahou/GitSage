@@ -14,7 +14,7 @@ import json
 # ============================================
 st.set_page_config(
     page_title="GitSage",
-    page_icon="🧠",
+    page_icon="",
     layout="wide"
 )
 
@@ -33,7 +33,7 @@ if "messages" not in st.session_state:
 # ============================================
 # HEADER
 # ============================================
-st.title("🧠 GitSage")
+st.title("GitSage")
 st.caption("Ask questions about any GitHub repository")
 
 # ============================================

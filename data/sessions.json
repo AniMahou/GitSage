@@ -45,6 +45,66 @@
     "chunks_indexed": 42,
     "error_message": null,
     "created_at": "2026-05-25T13:30:13.463569",
-    "last_accessed": "2026-05-25T13:30:15.460932"
+    "last_accessed": "2026-05-25T13:30:33.079184"
+  },
+  "2f0a15177d5a4a42": {
+    "session_id": "2f0a15177d5a4a42",
+    "repo_url": "https://github.com/AniMahou/GitSage",
+    "repo_name": "GitSage",
+    "status": "error",
+    "progress": "Error occurred",
+    "files_found": 19,
+    "chunks_indexed": 0,
+    "error_message": "'list' object has no attribute 'text'",
+    "created_at": "2026-05-25T13:58:04.638307",
+    "last_accessed": "2026-05-25T13:58:05.822163"
+  },
+  "15b4b6b312ea4742": {
+    "session_id": "15b4b6b312ea4742",
+    "repo_url": "https://github.com/AniMahou/GitSage",
+    "repo_name": "GitSage",
+    "status": "error",
+    "progress": "Error occurred",
+    "files_found": 19,
+    "chunks_indexed": 0,
+    "error_message": "'list' object has no attribute 'text'",
+    "created_at": "2026-05-25T13:58:27.229374",
+    "last_accessed": "2026-05-25T13:58:28.698057"
+  },
+  "bc5806e5236643d4": {
+    "session_id": "bc5806e5236643d4",
+    "repo_url": "https://github.com/AniMahou/Cli-Chat",
+    "repo_name": "Cli-Chat",
+    "status": "ready",
+    "progress": "Indexed 42 chunks from 40 files in 2.0s",
+    "files_found": 40,
+    "chunks_indexed": 42,
+    "error_message": null,
+    "created_at": "2026-05-25T13:59:20.809636",
+    "last_accessed": "2026-05-25T13:59:41.401019"
+  },
+  "0843a7e9979a468e": {
+    "session_id": "0843a7e9979a468e",
+    "repo_url": "https://github.com/AniMahou/GitSage",
+    "repo_name": "GitSage",
+    "status": "error",
+    "progress": "Error occurred",
+    "files_found": 19,
+    "chunks_indexed": 0,
+    "error_message": "'list' object has no attribute 'text'",
+    "created_at": "2026-05-25T14:00:14.975560",
+    "last_accessed": "2026-05-25T14:00:16.236780"
+  },
+  "57fc1bebe3304598": {
+    "session_id": "57fc1bebe3304598",
+    "repo_url": "https://github.com/IUT-Dhongorsho/DevSprint",
+    "repo_name": "DevSprint",
+    "status": "ready",
+    "progress": "Indexed 245 chunks from 104 files in 3.7s",
+    "files_found": 104,
+    "chunks_indexed": 245,
+    "error_message": null,
+    "created_at": "2026-05-25T14:00:51.462492",
+    "last_accessed": "2026-05-25T14:00:55.156011"
   }
 }
