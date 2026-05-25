@@ -1,0 +1,38 @@
+{
+  "41573a7147034c96": {
+    "session_id": "41573a7147034c96",
+    "repo_url": "http://github.com/AniMahou/Cli-Chat",
+    "repo_name": "Cli-Chat",
+    "status": "error",
+    "progress": "Error occurred",
+    "files_found": 40,
+    "chunks_indexed": 0,
+    "error_message": "disk I/O error",
+    "created_at": "2026-05-25T13:06:20.807288",
+    "last_accessed": "2026-05-25T13:07:46.902085"
+  },
+  "3cd91357d1bf4cdb": {
+    "session_id": "3cd91357d1bf4cdb",
+    "repo_url": "http://github.com/AniMahou/Cli-Chat",
+    "repo_name": "Cli-Chat",
+    "status": "error",
+    "progress": "Error occurred",
+    "files_found": 40,
+    "chunks_indexed": 0,
+    "error_message": "disk I/O error",
+    "created_at": "2026-05-25T13:09:41.383846",
+    "last_accessed": "2026-05-25T13:09:56.875647"
+  },
+  "a28a990e354c4fc2": {
+    "session_id": "a28a990e354c4fc2",
+    "repo_url": "http://github.com/AniMahou/Cli-Chat",
+    "repo_name": "Cli-Chat",
+    "status": "ready",
+    "progress": "Indexed 42 chunks from 40 files in 2.7s",
+    "files_found": 40,
+    "chunks_indexed": 42,
+    "error_message": null,
+    "created_at": "2026-05-25T13:13:51.353695",
+    "last_accessed": "2026-05-25T13:14:28.495213"
+  }
+}

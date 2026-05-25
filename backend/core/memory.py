@@ -17,8 +17,9 @@ Why memory matters:
 from typing import List, Dict, Optional
 from openai import OpenAI
 
-from backend.config import OPENAI_API_KEY, LLM_MODEL, MAX_CONVERSATION_TURNS
+from backend.config import GROQ_API_KEY, LLM_MODEL, MAX_CONVERSATION_TURNS
 from backend.utils.logger import setup_logger
+
 
 logger = setup_logger(__name__)
 
@@ -45,7 +46,11 @@ class ConversationMemory:
         self._histories: Dict[str, List[Dict]] = {}
         
         # Lightweight LLM client for query rewriting
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        # from backend.config import GROQ_API_KEY
+        self.client = OpenAI(
+            api_key=GROQ_API_KEY,
+            base_url="https://api.groq.com/openai/v1"
+        )
         
         logger.info("ConversationMemory initialized")
     

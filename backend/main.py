@@ -328,7 +328,9 @@ async def _index_pipeline(session_id: str, repo_url: str):
         )
         
     except Exception as e:
+        import traceback
         logger.error(f"❌ Indexing failed for {session_id}: {e}")
+        logger.error(f"Traceback:\n{traceback.format_exc()}")
         app.state.session_store.update_error(session_id, str(e))
 
 

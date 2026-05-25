@@ -9,9 +9,9 @@ This is the "grounding" principle — the answer must come from the context.
 """
 
 from typing import List, Dict, Optional, Generator
+from groq import Groq
 from openai import OpenAI
-
-from backend.config import OPENAI_API_KEY, LLM_MODEL
+from backend.config import LLM_MODEL
 from backend.utils.logger import setup_logger
 from backend.utils.token_counter import counter
 
@@ -157,11 +157,13 @@ class Generator:
     """
     
     def __init__(self):
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
+        from backend.config import GROQ_API_KEY
+        self.client = OpenAI(
+            api_key=GROQ_API_KEY,
+            base_url="https://api.groq.com/openai/v1"
+        )
         self.model = LLM_MODEL
-        
-        logger.info(f"Generator initialized: model={self.model}")
-    
+        logger.info(f"Generator initialized: model={self.model} (Groq)")
     # ─── NON-STREAMING ────────────────────────────────
     
     def generate(

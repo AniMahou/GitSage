@@ -1,16 +1,27 @@
+# backend/config.py
+"""
+Central configuration for GitSage.
+All settings are loaded from environment variables with sensible defaults.
+"""
+
 import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+# Load .env file from project root
 load_dotenv(Path(__file__).parent.parent / ".env")
 
 
 # ============================================
-# OpenAI
+# LLM (Groq - Free)
 # ============================================
-OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "")
-LLM_MODEL: str = os.getenv("LLM_MODEL", "gpt-4o-mini")
-EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "text-embedding-3-small")
+GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
+LLM_MODEL: str = os.getenv("LLM_MODEL", "llama-3.3-70b-versatile")
+
+# ============================================
+# Embeddings (Local - Free)
+# ============================================
+EMBEDDING_MODEL: str = os.getenv("EMBEDDING_MODEL", "all-MiniLM-L6-v2")
 
 
 # ============================================
@@ -46,37 +57,27 @@ SESSION_EXPIRE_HOURS: int = int(os.getenv("SESSION_EXPIRE_HOURS", "24"))
 # ============================================
 # Retrieval Settings
 # ============================================
-# How many candidates to retrieve in Stage 1
 RETRIEVAL_K_CANDIDATES: int = 20
-
-# How many chunks to keep after re-ranking
 RETRIEVAL_K_FINAL: int = 5
-
-# Minimum similarity score to consider
 RETRIEVAL_THRESHOLD: float = 0.3
 
 
 # ============================================
 # Chunking Settings
 # ============================================
-# Maximum characters per code chunk
 CHUNK_MAX_CHARS: int = 1500
-
-# Overlap between chunks (for fallback parser)
 CHUNK_OVERLAP_CHARS: int = 100
 
 
 # ============================================
 # Embedding Settings
 # ============================================
-# Batch size for embedding API calls
 EMBEDDING_BATCH_SIZE: int = 100
 
 
 # ============================================
 # Memory Settings
 # ============================================
-# Maximum conversation turns to remember
 MAX_CONVERSATION_TURNS: int = 10
 
 
@@ -87,14 +88,14 @@ LOG_LEVEL: str = os.getenv("LOG_LEVEL", "INFO")
 
 
 # ============================================
-# Validation (runs on import)
+# Validation
 # ============================================
 def validate_config():
     """Ensure critical settings are present."""
     errors = []
     
-    if not OPENAI_API_KEY or OPENAI_API_KEY == "sk-your-actual-key-here":
-        errors.append("OPENAI_API_KEY is not set in .env file")
+    if not GROQ_API_KEY or GROQ_API_KEY == "gsk_your_groq_key_here":
+        errors.append("GROQ_API_KEY is not set in .env file")
     
     if errors:
         raise ValueError(
@@ -102,6 +103,3 @@ def validate_config():
             "\n".join(f"  • {e}" for e in errors) +
             "\n\nPlease update your .env file."
         )
-
-# Uncomment to enforce validation on startup:
-# validate_config()

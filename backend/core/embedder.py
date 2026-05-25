@@ -1,25 +1,16 @@
 # backend/core/embedder.py
 """
-Embedding generation for GitSage.
-Converts code chunks into vectors using OpenAI's text-embedding-3-small.
+Free local embedding generation for GitSage.
+Uses Sentence-Transformers (all-MiniLM-L6-v2) — no API costs, no rate limits.
 
-Why embeddings?
-    "How does authentication work?"  →  [0.012, -0.045, 0.078, ...]
-    "class AuthMiddleware:"          →  [0.015, -0.042, 0.081, ...]
-    
-    These vectors are close in space because they're about the same topic.
-    This is how we find relevant code without exact keyword matching.
+Dimensions: 384 (smaller than OpenAI's 1536, but good enough for code search)
 """
 
 import time
-from typing import List, Optional
-from openai import OpenAI
+from typing import List
+from sentence_transformers import SentenceTransformer
 
-from backend.config import (
-    OPENAI_API_KEY,
-    EMBEDDING_MODEL,
-    EMBEDDING_BATCH_SIZE,
-)
+from backend.config import EMBEDDING_BATCH_SIZE
 from backend.models.schemas import CodeChunk
 from backend.utils.logger import setup_logger
 
@@ -28,41 +19,23 @@ logger = setup_logger(__name__)
 
 class Embedder:
     """
-    Generate embeddings for code chunks using OpenAI API.
+    Generate embeddings using free local model.
     
-    Features:
-        • Batch processing (100 chunks per API call)
-        • Automatic retry on failure
-        • Progress logging
-        • Handles rate limits gracefully
-    
-    Usage:
-        embedder = Embedder()
-        vectors = embedder.embed_chunks(chunks)
-        # Returns: List[List[float]] — 1536 numbers per chunk
+    Model: all-MiniLM-L6-v2
+    Dimensions: 384
+    Speed: ~100 chunks/second on CPU
+    Cost: FREE forever
     """
     
     def __init__(self):
-        self.client = OpenAI(api_key=OPENAI_API_KEY)
-        self.model = EMBEDDING_MODEL
+        logger.info("Loading local embedding model (all-MiniLM-L6-v2)...")
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.batch_size = EMBEDDING_BATCH_SIZE
-        self.max_retries = 3
         
-        logger.info(f"Embedder initialized: model={self.model}, batch_size={self.batch_size}")
-    
-    # ─── MAIN METHOD ───────────────────────────────────
+        logger.info(f"Embedder ready: model=all-MiniLM-L6-v2, dims=384, batch={self.batch_size}")
     
     def embed_chunks(self, chunks: List[CodeChunk]) -> List[CodeChunk]:
-        """
-        Generate embeddings for all chunks.
-        Modifies chunks in-place by setting chunk.embedding.
-        
-        Args:
-            chunks: List of CodeChunk objects
-        
-        Returns:
-            Same chunks with embeddings populated
-        """
+        """Generate embeddings for all chunks (modifies in-place)."""
         total = len(chunks)
         
         if total == 0:
@@ -72,29 +45,20 @@ class Embedder:
         logger.info(f"Generating embeddings for {total} chunks...")
         start_time = time.time()
         
-        # Process in batches
         for i in range(0, total, self.batch_size):
             batch = chunks[i:i + self.batch_size]
             batch_num = (i // self.batch_size) + 1
             total_batches = (total + self.batch_size - 1) // self.batch_size
             
-            # Extract text from chunks
             texts = [chunk.text for chunk in batch]
+            vectors = self.model.encode(texts).tolist()
             
-            # Embed with retry
-            vectors = self._embed_batch(texts, batch_num)
-            
-            # Assign vectors back to chunks
             for chunk, vector in zip(batch, vectors):
                 chunk.embedding = vector
             
-            # Progress
             progress = min(i + self.batch_size, total)
-            logger.info(
-                f"  Batch {batch_num}/{total_batches}: "
-                f"Embedded {progress}/{total} chunks "
-                f"({progress/total*100:.1f}%)"
-            )
+            if batch_num % 5 == 0 or batch_num == total_batches:
+                logger.info(f"  Batch {batch_num}/{total_batches}: {progress}/{total} chunks")
         
         elapsed = time.time() - start_time
         logger.info(f"Embedding complete: {total} chunks in {elapsed:.1f}s")
@@ -102,24 +66,9 @@ class Embedder:
         return chunks
     
     def embed_query(self, query: str) -> List[float]:
-        """
-        Generate embedding for a single user query.
-        
-        Args:
-            query: User's question about the codebase
-        
-        Returns:
-            1536-dimensional vector
-        """
-        logger.debug(f"Embedding query: '{query[:80]}...'")
-        
-        response = self.client.embeddings.create(
-            model=self.model,
-            input=query
-        )
-        
-        return response.data[0].embedding
-    
+        """Embed a single user query."""
+        return self.model.encode(query).tolist()
+
     # ─── BATCH PROCESSING ─────────────────────────────
     
     def _embed_batch(self, texts: List[str], batch_num: int) -> List[List[float]]:
