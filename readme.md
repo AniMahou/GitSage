@@ -32,7 +32,42 @@ Every answer includes **[file:line]** citations pointing to the exact code.
 
 ## 🏗️ Architecture
 
-(ARCHITECTURE_DIAGRAM_GOES_HERE)
+```mermaid
+flowchart TB
+    User["👤 User Question"]
+    
+    subgraph Frontend["Frontend (Streamlit)"]
+        UI["Chat Interface"]
+    end
+    
+    subgraph Backend["Backend (FastAPI)"]
+        API["API Server"]
+    end
+    
+    subgraph Storage["Vector Database"]
+        Chroma["ChromaDB"]
+    end
+    
+    subgraph Pipeline["RAG Pipeline"]
+        Repo["Repo Handler<br/>(Git Clone)"]
+        Chunker["Code Chunker<br/>(AST Parser)"]
+        Embedder["Embedder<br/>(MiniLM)"]
+        Retriever["Retriever<br/>(2-Stage)"]
+        Generator["Generator<br/>(Groq LLM)"]
+    end
+    
+    User --> UI
+    UI --> API
+    API --> Chroma
+    API --> Repo
+    Repo --> Chunker
+    Chunker --> Embedder
+    Embedder --> Chroma
+    API --> Retriever
+    Retriever --> Chroma
+    Retriever --> Generator
+    Generator --> UI
+```
 
 ### Retrieval Pipeline (Two-Stage)
 
@@ -134,31 +169,35 @@ Ask questions in the chat
 ---
 
 ## 📁 Project Structure
-GitSage/
-├── backend/
-│ ├── main.py # FastAPI server
-│ ├── config.py # Configuration
-│ ├── models/
-│ │ └── schemas.py # Pydantic models
-│ ├── core/
-│ │ ├── repo_handler.py # Git clone & file walk
-│ │ ├── chunker.py # AST-based code chunking
-│ │ ├── embedder.py # Local embedding generation
-│ │ ├── retriever.py # Two-stage retrieval
-│ │ ├── generator.py # Groq LLM generation
-│ │ └── memory.py # Conversation history
-│ ├── db/
-│ │ ├── vector_store.py # ChromaDB operations
-│ │ └── session_store.py # Session management
-│ └── utils/
-│ ├── logger.py # Logging
-│ └── token_counter.py # Token management
-├── frontend/
-│ └── app.py # Streamlit UI
-├── .env.example
-├── requirements.txt
-└── README.md
-
+```mermaid
+graph LR
+    subgraph GitSage
+        direction TB
+        B[backend/] --> B_main[main.py]
+        B --> B_config[config.py]
+        B --> B_models[models/]
+        B_models --> B_schemas[schemas.py]
+        B --> B_core[core/]
+        B_core --> B_repo[repo_handler.py]
+        B_core --> B_chunk[chunker.py]
+        B_core --> B_embed[embedder.py]
+        B_core --> B_ret[retriever.py]
+        B_core --> B_gen[generator.py]
+        B_core --> B_mem[memory.py]
+        B --> B_db[db/]
+        B_db --> B_vec[vector_store.py]
+        B_db --> B_sess[session_store.py]
+        B --> B_utils[utils/]
+        B_utils --> B_log[logger.py]
+        B_utils --> B_tok[token_counter.py]
+        F[frontend/] --> F_app[app.py]
+        Root[.] --> B
+        Root --> F
+        Root --> Env[.env.example]
+        Root --> Req[requirements.txt]
+        Root --> Readme[README.md]
+    end
+```
 
 ---
 
