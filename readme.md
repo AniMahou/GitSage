@@ -93,6 +93,104 @@ Click "Index Repository" — wait 30-60 seconds
 
 Ask questions in the chat
 
+---
+
+## 🧪 API Endpoints
+
+| Method | Endpoint | Description |
+|:-------|:---------|:------------|
+| `POST` | `/api/sessions` | Create a new session |
+| `POST` | `/api/sessions/{id}/index` | Index a repository |
+| `GET` | `/api/sessions/{id}` | Get session status |
+| `POST` | `/api/sessions/{id}/query/sync` | Ask a question |
+| `DELETE` | `/api/sessions/{id}` | Delete a session |
+| `GET` | `/api/health` | Health check |
+
+---
+
+## 🔧 Tech Stack
+
+| Layer | Technology | Purpose |
+|:------|:-----------|:--------|
+| **Frontend** | Streamlit | Chat UI |
+| **Backend** | FastAPI | API server |
+| **LLM** | Groq (Llama 3.3 70B) | Answer generation (free) |
+| **Embeddings** | all-MiniLM-L6-v2 | Local vector embeddings (free) |
+| **Vector DB** | ChromaDB | Semantic search |
+| **Reranker** | ms-marco-MiniLM-L-6-v2 | Cross-encoder reranking |
+| **Code Parsing** | AST (built-in) | Python code chunking |
+| **Git** | GitPython | Repository cloning |
+
+---
+
+## 💰 Cost
+
+**$0.00** — Entirely free to run.
+
+- Groq API: Free tier (generous rate limits)
+- Embeddings: Local model (no API calls)
+- ChromaDB: Local storage (no cloud costs)
+
+---
+
+## 📁 Project Structure
+GitSage/
+├── backend/
+│ ├── main.py # FastAPI server
+│ ├── config.py # Configuration
+│ ├── models/
+│ │ └── schemas.py # Pydantic models
+│ ├── core/
+│ │ ├── repo_handler.py # Git clone & file walk
+│ │ ├── chunker.py # AST-based code chunking
+│ │ ├── embedder.py # Local embedding generation
+│ │ ├── retriever.py # Two-stage retrieval
+│ │ ├── generator.py # Groq LLM generation
+│ │ └── memory.py # Conversation history
+│ ├── db/
+│ │ ├── vector_store.py # ChromaDB operations
+│ │ └── session_store.py # Session management
+│ └── utils/
+│ ├── logger.py # Logging
+│ └── token_counter.py # Token management
+├── frontend/
+│ └── app.py # Streamlit UI
+├── .env.example
+├── requirements.txt
+└── README.md
+
+
+---
+
+## 🎯 Example Queries
+
+Try these on the `requests` library or any repo:
+
+```bash 
+"How does the Session class handle authentication?"
+"What happens when a request times out?"
+"How are redirects followed?"
+"Explain the connection pooling mechanism"
+```
+
+
+---
+
+## 📝 License
+
+MIT License — feel free to use, modify, and distribute.
+
+---
+
+## 🙏 Acknowledgments
+
+- [Groq](https://groq.com) for free LLM inference
+- [Sentence Transformers](https://sbert.net) for local embeddings
+- [ChromaDB](https://trychroma.com) for the vector database
+- [LangChain](https://langchain.com) for text splitting utilities
+
+
+
 
 
 
