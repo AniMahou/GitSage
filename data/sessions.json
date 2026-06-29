@@ -106,5 +106,53 @@
     "error_message": null,
     "created_at": "2026-05-25T14:00:51.462492",
     "last_accessed": "2026-05-25T14:00:55.156011"
+  },
+  "9f369af180ff45ff": {
+    "session_id": "9f369af180ff45ff",
+    "repo_url": "https://github.com/AniMahou/Cli-Chat",
+    "repo_name": "Cli-Chat",
+    "status": "ready",
+    "progress": "Indexed 42 chunks from 40 files in 3.2s",
+    "files_found": 40,
+    "chunks_indexed": 42,
+    "error_message": null,
+    "created_at": "2026-06-28T02:04:38.839932",
+    "last_accessed": "2026-06-28T02:05:00.025092"
+  },
+  "dbc7cad587354d12": {
+    "session_id": "dbc7cad587354d12",
+    "repo_url": "https://github.com/AniMahou/cuet-cse-fest-devops-hackathon-preli.git",
+    "repo_name": "cuet-cse-fest-devops-hackathon-preli",
+    "status": "ready",
+    "progress": "Indexed 20 chunks from 9 files in 2.0s",
+    "files_found": 9,
+    "chunks_indexed": 20,
+    "error_message": null,
+    "created_at": "2026-06-28T02:06:01.677191",
+    "last_accessed": "2026-06-28T02:06:03.732496"
+  },
+  "3b582fdb39ed40e5": {
+    "session_id": "3b582fdb39ed40e5",
+    "repo_url": "https://github.com/AniMahou/cuet-cse-fest-devops-hackathon-preli.git",
+    "repo_name": "cuet-cse-fest-devops-hackathon-preli",
+    "status": "ready",
+    "progress": "Indexed 20 chunks from 9 files in 1.7s",
+    "files_found": 9,
+    "chunks_indexed": 20,
+    "error_message": null,
+    "created_at": "2026-06-28T02:09:27.778239",
+    "last_accessed": "2026-06-28T02:09:39.672043"
+  },
+  "2e58c3daf8b84639": {
+    "session_id": "2e58c3daf8b84639",
+    "repo_url": "https://github.com/AniMahou/Cli-Chat.git",
+    "repo_name": "Cli-Chat",
+    "status": "ready",
+    "progress": "Indexed 42 chunks from 40 files in 2.3s",
+    "files_found": 40,
+    "chunks_indexed": 42,
+    "error_message": null,
+    "created_at": "2026-06-28T02:13:58.804446",
+    "last_accessed": "2026-06-28T02:14:01.152945"
   }
 }

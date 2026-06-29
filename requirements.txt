@@ -12,6 +12,7 @@ pydantic-settings==2.7.1
 
 # --- LLM & Embeddings ---
 openai==1.59.3
+groq==0.18.0
 
 # --- Vector Database ---
 chromadb==0.5.23
@@ -23,8 +24,6 @@ sentence-transformers==3.3.1
 GitPython==3.1.44
 
 # --- Code Parsing ---
-# AST is built into Python (no install needed)
-# tree-sitter for JS/TS/Go/Rust support (optional)
 tree-sitter==0.23.2
 
 # --- Token Counting ---
@@ -32,17 +31,19 @@ tiktoken==0.8.0
 
 # --- HTTP & CORS ---
 httpx==0.28.1
+requests>=2.31
 
 # --- Environment Variables ---
 python-dotenv==1.0.1
 
-# --- Logging ---
-# (uses Python's built-in logging, no extra install)
-
 # --- Streaming (Server-Sent Events) ---
 sse-starlette==2.2.1
 
-# --- Testing ---
+# --- Frontend ---
+streamlit>=1.32
+starlette>=0.38
+
+# --- Testing (Optional) ---
 pytest==8.3.4
 pytest-asyncio==0.25.0
-groq==0.18.0
+# --- Development Tools (Optional) ---
